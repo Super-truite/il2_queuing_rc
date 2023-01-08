@@ -6,7 +6,7 @@ class RemoteConsoleRpcClient(object):
 
     def __init__(self):
         self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost'))
+            pika.ConnectionParameters(host='localhost', heartbeat=10)) 
 
         self.channel = self.connection.channel()
 
