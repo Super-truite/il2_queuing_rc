@@ -1,10 +1,10 @@
 import setuptools
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open("il2_queuing_rc/README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="il2queuingrc", # Replace with your own username
+    name="il2_queuing_rc", # Replace with your own username
     version="0.1",
     author="super-truite",
     author_email="author@example.com",
