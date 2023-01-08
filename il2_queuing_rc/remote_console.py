@@ -18,7 +18,9 @@ def to_df(s):
     d = {k: [] for k in header}
     for row in a[2:]:
         row = row.split(',')
+        print("response: ", row, d.keys())
         for i, k in enumerate(d.keys()):
+            print(row[i])
             d[k].append(row[i])
 
     return pd.DataFrame(d)
@@ -36,6 +38,7 @@ def parse_response(s):
     parsing response (mlainly to be able to pretty print the result of getplayerlist)
     '''
     S = unquote(s)
+    print("response: ", S)
     list_message = []
     element = []
     for s in S.split('&'):
