@@ -12,7 +12,7 @@ def to_df(s):
     '''
     convert the result of getplayerlist to dataframe
     '''
-    s = urllib.parse.unquote(s)
+    s = unquote(s)
     a = s.split('|')
     header = a[0].split(',')
     d = {k: [] for k in header}
@@ -35,7 +35,7 @@ def parse_response(s):
     '''
     parsing response (mlainly to be able to pretty print the result of getplayerlist)
     '''
-    S = urllib.parse.unquote(s)
+    S = unquote(s)
     list_message = []
     element = []
     for s in S.split('&'):
