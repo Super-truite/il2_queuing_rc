@@ -5,7 +5,49 @@ import struct
 import re
 import time
 from urllib.parse import unquote
+from tabulate import tabulate
+import pandas as pd
 
+def to_df(s):
+    '''
+    convert the result of getplayerlist to dataframe
+    '''
+    s = urllib.parse.unquote(s)
+    a = s.split('|')
+    header = a[0].split(',')
+    d = {k: [] for k in header}
+    for row in a[2:]:
+        row = row.split(',')
+        for i, k in enumerate(d.keys()):
+            d[k].append(row[i])
+
+    return pd.DataFrame(d)
+
+def to_ascii_table(s):
+    '''
+    convert dataframe to ascii table (to display in dioscord for instance)
+    '''
+    df = to_df(s)
+    df = df.drop(columns=['playerId', 'profileId'])
+    return "```{}```".format(str(tabulate(df, tablefmt="pipe", headers="keys")))
+
+def parse_response(s):
+    '''
+    parsing response (mlainly to be able to pretty print the result of getplayerlist)
+    '''
+    S = urllib.parse.unquote(s)
+    list_message = []
+    element = []
+    for s in S.split('&'):
+        a = s.split('=')
+        element.append(a[0])
+        if '|' in a[1]:
+            return to_ascii_table(a[1])
+            element.append(to_ascii_table(a[1]))
+        else:
+            element.append(a[1])
+        list_message.append(element)
+    return list_message
 
 def pack_message(msg):
     """  Returns packed string msg for TCP send """
